@@ -464,14 +464,21 @@
   }
 
   // ── Formatting ──
+  function unwrap(val) {
+    if (val && typeof val === 'object' && 'value' in val)
+      return val.type === 'null' ? null : val.value;
+    return val ?? null;
+  }
   function parseDate(val) {
+    val = unwrap(val);
     if (!val) return null;
     if (typeof val === 'number' || /^\d{10,13}$/.test(String(val))) { const ts = parseInt(val); return new Date(ts > 1e12 ? ts : ts * 1000); }
     const d = new Date(val); return isNaN(d) ? null : d;
   }
   function formatVence(val) {
+    val = unwrap(val);
     const date = parseDate(val);
-    if (!date) return `<span style="color:var(--muted)">${val ?? '—'}</span>`;
+    if (!date) return `<span style="color:var(--muted)">—</span>`;
     const diff = date - new Date(), days = Math.ceil(diff/86400000);
     const fmt = date.toLocaleDateString('es-MX', { day:'2-digit', month:'short', year:'numeric' });
     if (diff < 0)  return `<span class="chip danger">✕ Vencido · ${fmt}</span>`;
@@ -589,7 +596,7 @@
     }
   }
 
-  // ──  Add modal ──
+  // ── Add modal ──
   function openAddModal() {
     if (!hasWriteToken()) { toggleConfig(true); setConfigHint('⚠ Agrega el token de escritura primero.'); return; }
     document.getElementById('modalTitle').textContent = 'Nuevo VIP';
