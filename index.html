@@ -426,7 +426,14 @@
       const result = await tursoQuery('SELECT id, auth, room_key, activo, nota, vence_en FROM vips ORDER BY id ASC');
       const cols = result?.cols?.map(c => c.name) ?? [];
       const rows = result?.rows ?? [];
-      allRows = rows.map(row => Object.fromEntries(cols.map((col, i) => [col, row[i]?.value ?? row[i]])));
+      allRows = rows.map(row =>
+        Object.fromEntries(cols.map((col, i) => {
+          const cell = row[i];
+          if (cell && typeof cell === 'object' && 'value' in cell)
+            return [col, cell.type === 'null' ? null : cell.value];
+          return [col, cell ?? null];
+        }))
+      );
       setConnected(true);
       setStatus(`✓ ${allRows.length} registros cargados.`, 'ok');
       setTimeout(() => setStatus(''), 2000);
