@@ -127,6 +127,10 @@
     .del-btn { background: none; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); cursor: pointer; padding: 3px 8px; font-size: 11px; transition: all 0.15s; }
     .del-btn:hover { border-color: var(--danger); color: var(--danger); }
 
+    /* ── NUEVO: Clone button ── */
+    .clone-btn { background: none; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); cursor: pointer; padding: 3px 8px; font-size: 11px; transition: all 0.15s; }
+    .clone-btn:hover { border-color: #7b9ef4; color: #7b9ef4; }
+
     .nota-cell { max-width: 180px; color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .id-cell { color: var(--muted); font-size: 11px; }
     .empty-state { text-align: center; padding: 60px 24px; color: var(--muted); }
@@ -384,7 +388,6 @@
     const url = cfg.url.replace(/^libsql:\/\//, 'https://').replace(/\/$/, '') + '/v2/pipeline';
     const token = useWrite ? cfg.writeToken : cfg.token;
     if (useWrite && !token) throw new Error('No hay token de escritura configurado. Ve a ⚙ Configurar.');
-    // Turso HTTP API expects args as [{type, value}]
     const mappedArgs = args.map(v => {
       if (v === null || v === undefined || v === '') return { type: 'null', value: null };
       if (typeof v === 'number') return { type: 'integer', value: String(v) };
@@ -488,7 +491,6 @@
   function formatActivo(val) {
     return isActivo(val) ? `<span class="chip ok">● Activo</span>` : `<span class="chip off">○ Inactivo</span>`;
   }
-  // Convert value to date input format yyyy-mm-dd
   function toDateInput(val) {
     const d = parseDate(val); if (!d) return '';
     return d.toISOString().slice(0, 10);
@@ -517,12 +519,16 @@
       const authStr = String(row.auth ?? ''), rkStr = String(row.room_key ?? '');
       const authShort = authStr.length > 14 ? authStr.slice(0,14)+'…' : authStr;
       const rkShort   = rkStr.length   > 14 ? rkStr.slice(0,14)+'…'   : rkStr;
+
+      // ── CAMBIO: se agrega el botón clone ──
       const actions = canWrite
         ? `<div class="edit-actions">
-             <button class="edit-btn" onclick="startEdit(${row.id})">✏ editar</button>
-             <button class="del-btn"  onclick="askDelete(${row.id})">🗑</button>
+             <button class="edit-btn"  onclick="startEdit(${row.id})">✏ editar</button>
+             <button class="clone-btn" onclick="cloneVip(${row.id})">⧉ clonar</button>
+             <button class="del-btn"   onclick="askDelete(${row.id})">🗑</button>
            </div>`
         : `<span style="color:var(--muted);font-size:11px">—</span>`;
+
       return `<tr id="row-${row.id}" style="animation-delay:${i*20}ms">
         <td class="id-cell">${row.id ?? '—'}</td>
         <td>${formatActivo(row.activo)}</td>
@@ -583,7 +589,6 @@
         [activo, vence, auth, rk, nota, String(id)],
         true
       );
-      // Update local data
       const idx = allRows.findIndex(r => r.id == id);
       if (idx >= 0) allRows[idx] = { ...allRows[idx], activo, vence_en: vence, auth, room_key: rk, nota };
       setStatus('✓ Registro actualizado.', 'ok'); setTimeout(() => setStatus(''), 2500);
@@ -594,6 +599,20 @@
       setStatus('❌ ' + err.message, 'error');
       if (tr) { const sb = tr.querySelector('.save-btn'); if(sb) { sb.textContent='✓ guardar'; sb.disabled=false; } }
     }
+  }
+
+  // ── Clone ── (NUEVO)
+  function cloneVip(id) {
+    if (!hasWriteToken()) { toggleConfig(true); setConfigHint('⚠ Agrega el token de escritura primero.'); return; }
+    const row = allRows.find(r => r.id == id); if (!row) return;
+    document.getElementById('modalTitle').textContent = `⧉ Clonar VIP #${id}`;
+    document.getElementById('modalSaveBtn').onclick = saveAdd;
+    document.getElementById('mAuth').value    = row.auth    ?? '';
+    document.getElementById('mRoomKey').value = row.room_key ?? '';
+    document.getElementById('mActivo').value  = isActivo(row.activo) ? '1' : '0';
+    document.getElementById('mVenceEn').value = toDateInput(row.vence_en);
+    document.getElementById('mNota').value    = row.nota ? `${row.nota} (copia)` : 'copia';
+    document.getElementById('modalOverlay').classList.add('open');
   }
 
   // ── Add modal ──
