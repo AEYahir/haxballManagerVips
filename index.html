@@ -7,18 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --surface2: #1a1a26;
-      --border: #2a2a3a;
-      --accent: #c8a84b;
-      --accent2: #e8c96b;
-      --text: #e8e8f0;
-      --muted: #6868a0;
-      --danger: #ff5c5c;
-      --ok: #4bca7f;
-      --warn: #f4a236;
-      --radius: 10px;
+      --bg: #0a0a0f; --surface: #111118; --surface2: #1a1a26; --border: #2a2a3a;
+      --accent: #c8a84b; --accent2: #e8c96b; --text: #e8e8f0; --muted: #6868a0;
+      --danger: #ff5c5c; --ok: #4bca7f; --warn: #f4a236; --radius: 10px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'DM Mono', monospace; background: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 24px; }
@@ -28,8 +19,6 @@
       pointer-events: none; z-index: 0;
     }
     .container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
-
-    /* Header */
     header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 24px; gap: 16px; flex-wrap: wrap; }
     .logo { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
     h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px, 4vw, 42px); font-weight: 800; line-height: 1; }
@@ -38,8 +27,6 @@
     .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; background: var(--surface2); border: 1px solid var(--border); padding: 5px 12px; border-radius: 99px; color: var(--muted); }
     .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); transition: background 0.3s; }
     .dot.active { background: var(--ok); box-shadow: 0 0 6px var(--ok); }
-
-    /* Buttons */
     .icon-btn { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); padding: 6px 14px; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
     .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
     .icon-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(200,168,75,0.07); }
@@ -50,8 +37,6 @@
     .btn-add:hover { background: rgba(75,202,127,0.18); }
     .btn-ghost { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); padding: 9px 16px; cursor: pointer; transition: all 0.2s; }
     .btn-ghost:hover { border-color: var(--danger); color: var(--danger); }
-
-    /* Config panel */
     .config-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; max-height: 0; opacity: 0; transition: max-height 0.38s ease, opacity 0.25s ease, margin-bottom 0.38s ease; margin-bottom: 0; }
     .config-panel.open { max-height: 420px; opacity: 1; margin-bottom: 24px; }
     .config-inner { padding: 20px 24px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: flex-end; }
@@ -68,19 +53,13 @@
     .config-hint { font-size: 11px; color: var(--muted); }
     .token-note { grid-column: 1/-1; font-size: 11px; color: var(--muted); padding: 10px 12px; background: rgba(104,104,160,0.08); border: 1px solid var(--border); border-radius: 6px; line-height: 1.6; }
     .token-note strong { color: var(--warn); }
-
-    /* Stats */
     .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 28px; }
     .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; }
     .stat-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
     .stat-value { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; }
     .stat-value.ok { color: var(--ok); } .stat-value.warn { color: var(--warn); } .stat-value.danger { color: var(--danger); } .stat-value.muted { color: var(--muted); }
-
-    /* Status */
     .status { font-size: 12px; color: var(--muted); margin-bottom: 16px; min-height: 18px; display: flex; align-items: center; gap: 8px; }
     .status.error { color: var(--danger); } .status.loading { color: var(--accent); } .status.ok { color: var(--ok); }
-
-    /* Table */
     .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
     .table-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); gap: 12px; flex-wrap: wrap; }
     .table-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -88,6 +67,7 @@
     .search-box { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'DM Mono', monospace; font-size: 12px; padding: 6px 12px; outline: none; width: 180px; transition: border-color 0.2s; }
     .search-box:focus { border-color: var(--accent); }
     .search-box::placeholder { color: var(--muted); }
+    select.search-box { width: auto; cursor: pointer; }
     .tbl-scroll { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     thead th { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; cursor: pointer; user-select: none; transition: color 0.2s; }
@@ -99,22 +79,16 @@
     tbody tr:hover { background: var(--surface2); }
     tbody tr.editing { background: rgba(200,168,75,0.05); outline: 1px solid rgba(200,168,75,0.3); outline-offset: -1px; }
     td { padding: 11px 16px; vertical-align: middle; }
-
-    /* Chips */
     .chip { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; padding: 3px 10px; border-radius: 99px; font-weight: 500; }
     .chip.ok     { background: rgba(75,202,127,0.12); color: var(--ok);     border: 1px solid rgba(75,202,127,0.25); }
     .chip.warn   { background: rgba(244,162,54,0.12);  color: var(--warn);   border: 1px solid rgba(244,162,54,0.25); }
     .chip.danger { background: rgba(255,92,92,0.12);   color: var(--danger); border: 1px solid rgba(255,92,92,0.25); }
     .chip.off    { background: rgba(104,104,160,0.12); color: var(--muted);  border: 1px solid rgba(104,104,160,0.25); }
-
-    /* Copy cell */
     .copy-cell { display: flex; align-items: center; gap: 8px; }
     .copy-val { max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 11px; }
     .copy-btn { background: none; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); cursor: pointer; padding: 2px 7px; font-size: 10px; font-family: 'DM Mono', monospace; transition: all 0.15s; flex-shrink: 0; }
     .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
     .copy-btn.copied { border-color: var(--ok); color: var(--ok); }
-
-    /* Inline edit inputs */
     .edit-input { background: var(--bg); border: 1px solid var(--accent); border-radius: 5px; color: var(--text); font-family: 'DM Mono', monospace; font-size: 12px; padding: 5px 8px; outline: none; width: 100%; min-width: 80px; }
     .edit-select { background: var(--bg); border: 1px solid var(--accent); border-radius: 5px; color: var(--text); font-family: 'DM Mono', monospace; font-size: 12px; padding: 5px 8px; outline: none; }
     .edit-actions { display: flex; gap: 6px; align-items: center; white-space: nowrap; }
@@ -126,22 +100,16 @@
     .edit-btn:hover { border-color: var(--accent); color: var(--accent); }
     .del-btn { background: none; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); cursor: pointer; padding: 3px 8px; font-size: 11px; transition: all 0.15s; }
     .del-btn:hover { border-color: var(--danger); color: var(--danger); }
-
-    /* ── NUEVO: Clone button ── */
     .clone-btn { background: none; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); cursor: pointer; padding: 3px 8px; font-size: 11px; transition: all 0.15s; }
     .clone-btn:hover { border-color: #7b9ef4; color: #7b9ef4; }
-
     .nota-cell { max-width: 180px; color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .id-cell { color: var(--muted); font-size: 11px; }
     .empty-state { text-align: center; padding: 60px 24px; color: var(--muted); }
     .empty-icon { font-size: 32px; margin-bottom: 12px; }
-
     @keyframes spin { to { transform: rotate(360deg); } }
     .spinner { width: 14px; height: 14px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block; }
     @keyframes rowIn { from { opacity:0; transform: translateY(4px); } to { opacity:1; transform:none; } }
     tbody tr { animation: rowIn 0.2s ease both; }
-
-    /* Modal */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
     .modal-overlay.open { opacity: 1; pointer-events: all; }
     .modal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; width: 100%; max-width: 520px; transform: translateY(10px); transition: transform 0.25s ease; }
@@ -157,8 +125,6 @@
     .modal-field input::placeholder { color: var(--muted); }
     .modal-field.full { grid-column: 1/-1; }
     .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
-
-    /* Confirm dialog */
     .confirm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
     .confirm-overlay.open { opacity: 1; pointer-events: all; }
     .confirm-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; max-width: 380px; width: 100%; text-align: center; transform: scale(0.95); transition: transform 0.2s ease; }
@@ -169,7 +135,6 @@
     .confirm-actions { display: flex; gap: 10px; justify-content: center; }
     .btn-danger { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(255,92,92,0.15); border: 1px solid rgba(255,92,92,0.4); border-radius: 6px; color: var(--danger); padding: 9px 20px; cursor: pointer; transition: all 0.2s; }
     .btn-danger:hover { background: rgba(255,92,92,0.25); }
-
     .write-warning { font-size: 11px; color: var(--warn); background: rgba(244,162,54,0.08); border: 1px solid rgba(244,162,54,0.2); border-radius: 6px; padding: 8px 12px; margin-bottom: 16px; display: none; }
     .write-warning.show { display: block; }
   </style>
@@ -180,46 +145,41 @@
   <!-- Header -->
   <header>
     <div>
-      <p class="logo">Futsala Stats</p>
+      <p class="logo">Futsala MEX</p>
       <h1>Lista <span>VIP</span></h1>
     </div>
     <div class="header-actions">
-      <button class="icon-btn" id="settingsBtn" onclick="toggleConfig()">⚙ Configurar</button>
-      <button class="icon-btn" onclick="loadVips()">↻ Actualizar</button>
-      <span class="badge"><span class="dot" id="connDot"></span><span id="connLabel">Cargando…</span></span>
+      <button class="icon-btn" id="settingsBtn" onclick="toggleConfig()">&#9881; Configurar</button>
+      <button class="icon-btn" onclick="loadVips()">&#8635; Actualizar</button>
+      <span class="badge"><span class="dot" id="connDot"></span><span id="connLabel">Cargando&hellip;</span></span>
     </div>
   </header>
 
   <!-- Config panel -->
   <div class="config-panel" id="configPanel">
     <div class="config-inner">
-      <div class="config-title">⚙ Conexión a Turso</div>
-
+      <div class="config-title">&#9881; Conexi&oacute;n a Turso</div>
       <div class="field" style="grid-column:1/-1">
         <label>URL de la base de datos</label>
         <input type="text" id="cfgUrl" placeholder="libsql://tu-db.turso.io" />
       </div>
-
       <div class="field">
         <label>Token de solo lectura</label>
         <div class="field-row">
-          <input type="password" id="cfgToken" placeholder="eyJ… (ro)" />
-          <button class="toggle-vis" onclick="toggleVis('cfgToken')">👁</button>
+          <input type="password" id="cfgToken" placeholder="eyJ&hellip; (ro)" />
+          <button class="toggle-vis" onclick="toggleVis('cfgToken')">&#128065;</button>
         </div>
       </div>
-
       <div class="field">
         <label>Token de escritura <span style="color:var(--warn)">(para editar)</span></label>
         <div class="field-row">
-          <input type="password" id="cfgWriteToken" placeholder="eyJ… (rw)" />
-          <button class="toggle-vis" onclick="toggleVis('cfgWriteToken')">👁</button>
+          <input type="password" id="cfgWriteToken" placeholder="eyJ&hellip; (rw)" />
+          <button class="toggle-vis" onclick="toggleVis('cfgWriteToken')">&#128065;</button>
         </div>
       </div>
-
       <div class="token-note">
-        <strong>⚠ Token de escritura:</strong> Genéralo con <code>turso db tokens create nombre-db</code> o desde el dashboard de Turso. Guárdalo solo en este dispositivo.
+        <strong>&#9888; Token de escritura:</strong> Gen&eacute;ralo con <code>turso db tokens create nombre-db</code> o desde el dashboard de Turso. Gu&aacute;rdalo solo en este dispositivo.
       </div>
-
       <div class="config-actions">
         <button class="btn-primary" onclick="saveConfig()">Guardar y conectar</button>
         <button class="btn-ghost" onclick="clearConfig()">Limpiar</button>
@@ -230,23 +190,35 @@
 
   <!-- Stats -->
   <div class="stats">
-    <div class="stat-card"><div class="stat-label">Total VIPs</div><div class="stat-value" id="statTotal">—</div></div>
-    <div class="stat-card"><div class="stat-label">Activos</div><div class="stat-value ok" id="statActivos">—</div></div>
-    <div class="stat-card"><div class="stat-label">Por vencer (7d)</div><div class="stat-value warn" id="statWarn">—</div></div>
-    <div class="stat-card"><div class="stat-label">Vencidos</div><div class="stat-value danger" id="statExpired">—</div></div>
-    <div class="stat-card"><div class="stat-label">Inactivos</div><div class="stat-value muted" id="statInactivos">—</div></div>
+    <div class="stat-card"><div class="stat-label">Total VIPs</div><div class="stat-value" id="statTotal">&mdash;</div></div>
+    <div class="stat-card"><div class="stat-label">Activos</div><div class="stat-value ok" id="statActivos">&mdash;</div></div>
+    <div class="stat-card"><div class="stat-label">Por vencer (7d)</div><div class="stat-value warn" id="statWarn">&mdash;</div></div>
+    <div class="stat-card"><div class="stat-label">Vencidos</div><div class="stat-value danger" id="statExpired">&mdash;</div></div>
+    <div class="stat-card"><div class="stat-label">Inactivos</div><div class="stat-value muted" id="statInactivos">&mdash;</div></div>
   </div>
 
-  <div class="status loading" id="status"><span class="spinner"></span> Conectando…</div>
-  <div class="write-warning" id="writeWarning">⚠ Sin token de escritura — las ediciones están deshabilitadas. Agrégalo en ⚙ Configurar.</div>
+  <div class="status loading" id="status"><span class="spinner"></span> Conectando&hellip;</div>
+  <div class="write-warning" id="writeWarning">&#9888; Sin token de escritura &mdash; las ediciones est&aacute;n deshabilitadas. Agr&eacute;galo en &#9881; Configurar.</div>
 
   <!-- Table -->
   <div class="table-wrap">
     <div class="table-header">
       <span class="table-title">VIPs <span style="color:var(--muted);font-weight:400" id="countLabel"></span></span>
       <div class="table-header-right">
-        <input class="search-box" id="searchBox" placeholder="Buscar…" oninput="filterTable()" />
-        <button class="btn-add" id="addBtn" onclick="openAddModal()">＋ Nuevo VIP</button>
+        <input class="search-box" id="searchBox" placeholder="Buscar&hellip;" oninput="filterTable()" />
+        <select class="search-box" id="filterRoomKey" onchange="filterTable()">
+          <option value="">Todas las salas</option>
+          <option value="1v1">1v1</option>
+          <option value="3v3">3v3</option>
+          <option value="4v4">4v4</option>
+          <option value="7v7">7v7</option>
+        </select>
+        <select class="search-box" id="filterActivo" onchange="filterTable()">
+          <option value="">Todos</option>
+          <option value="1">Activo</option>
+          <option value="0">Inactivo</option>
+        </select>
+        <button class="btn-add" id="addBtn" onclick="openAddModal()">&#xff0b; Nuevo VIP</button>
       </div>
     </div>
     <div class="tbl-scroll">
@@ -263,11 +235,12 @@
           </tr>
         </thead>
         <tbody id="tableBody">
-          <tr><td colspan="7"><div class="empty-state"><div class="empty-icon">⏳</div><p>Cargando…</p></div></td></tr>
+          <tr><td colspan="7"><div class="empty-state"><div class="empty-icon">&#9203;</div><p>Cargando&hellip;</p></div></td></tr>
         </tbody>
       </table>
     </div>
   </div>
+
 </div>
 
 <!-- Add/Edit Modal -->
@@ -275,12 +248,12 @@
   <div class="modal">
     <div class="modal-title">
       <span id="modalTitle">Nuevo VIP</span>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="modal-close" onclick="closeModal()">&#10005;</button>
     </div>
     <div class="modal-grid">
       <div class="modal-field full">
         <label>Auth</label>
-        <input type="text" id="mAuth" placeholder="Token de autenticación" />
+        <input type="text" id="mAuth" placeholder="Token de autenticaci&oacute;n" />
       </div>
       <div class="modal-field full">
         <label>Room Key</label>
@@ -304,7 +277,7 @@
     </div>
     <div class="modal-actions">
       <button class="btn-ghost" onclick="closeModal()">Cancelar</button>
-      <button class="btn-primary" id="modalSaveBtn" onclick="saveModal()">Guardar</button>
+      <button class="btn-primary" id="modalSaveBtn" onclick="saveAdd()">Guardar</button>
     </div>
   </div>
 </div>
@@ -312,18 +285,17 @@
 <!-- Confirm delete -->
 <div class="confirm-overlay" id="confirmOverlay">
   <div class="confirm-box">
-    <div class="confirm-icon">🗑</div>
-    <div class="confirm-title">¿Eliminar VIP?</div>
-    <div class="confirm-desc" id="confirmDesc">Esta acción no se puede deshacer.</div>
+    <div class="confirm-icon">&#128465;</div>
+    <div class="confirm-title">&iquest;Eliminar VIP?</div>
+    <div class="confirm-desc" id="confirmDesc">Esta acci&oacute;n no se puede deshacer.</div>
     <div class="confirm-actions">
       <button class="btn-ghost" onclick="closeConfirm()">Cancelar</button>
-      <button class="btn-danger" onclick="confirmDelete()">Sí, eliminar</button>
+      <button class="btn-danger" onclick="confirmDelete()">S&iacute;, eliminar</button>
     </div>
   </div>
 </div>
 
 <script>
-  // ── Config ──
   const DEFAULT_URL   = 'https://futsala-stats-vermithor.aws-us-west-2.turso.io';
   const DEFAULT_TOKEN = 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE3NzQyNDIwNjUsImlkIjoiMDE5ZDA0YjAtOGUwMS03YTA4LTkzNjUtOWU5ZjZlZDY3NjY0IiwicmlkIjoiODllZmNiMTUtNTExNS00ZWExLThkOTAtNWIzYzc0ZjI4ZTliIn0.GsryNB04DBaTa9twAmIYglvvxGYN1npLVE-ZIPNLHNts5G2kebp8tDuQ2lumyALAnZB0V9wqhScXP5iaApnBCg';
 
@@ -347,12 +319,12 @@
     const url   = document.getElementById('cfgUrl').value.trim();
     const token = document.getElementById('cfgToken').value.trim();
     const wt    = document.getElementById('cfgWriteToken').value.trim();
-    if (!url || !token) { setConfigHint('⚠ URL y token de lectura son obligatorios.'); return; }
+    if (!url || !token) { setConfigHint('URL y token de lectura son obligatorios.'); return; }
     localStorage.setItem('vip_url', url);
     localStorage.setItem('vip_token', token);
     if (wt) localStorage.setItem('vip_write_token', wt);
     else    localStorage.removeItem('vip_write_token');
-    setConfigHint('✓ Guardado.');
+    setConfigHint('Guardado.');
     setTimeout(() => { toggleConfig(false); loadVips(); }, 500);
   }
 
@@ -382,12 +354,11 @@
     if (configOpen) initConfigInputs();
   }
 
-  // ── Turso query ──
   async function tursoQuery(sql, args = [], useWrite = false) {
     const cfg = getConfig();
     const url = cfg.url.replace(/^libsql:\/\//, 'https://').replace(/\/$/, '') + '/v2/pipeline';
     const token = useWrite ? cfg.writeToken : cfg.token;
-    if (useWrite && !token) throw new Error('No hay token de escritura configurado. Ve a ⚙ Configurar.');
+    if (useWrite && !token) throw new Error('No hay token de escritura configurado. Ve a Configurar.');
     const mappedArgs = args.map(v => {
       if (v === null || v === undefined || v === '') return { type: 'null', value: null };
       if (typeof v === 'number') return { type: 'integer', value: String(v) };
@@ -406,12 +377,9 @@
     return result?.response?.result;
   }
 
-  // ── State ──
   let allRows = [], sortCol = null, sortAsc = true, copyFns = {}, uid = 0;
-  let pendingDeleteId = null;
-  let editingId = null;
+  let pendingDeleteId = null, editingId = null;
 
-  // ── Status ──
   function setStatus(msg, type = '') {
     const el = document.getElementById('status');
     el.className = 'status ' + type;
@@ -422,7 +390,6 @@
     document.getElementById('connLabel').textContent = ok ? 'Conectado' : 'Error';
   }
 
-  // ── Load ──
   async function loadVips() {
     setStatus('Cargando…', 'loading');
     try {
@@ -446,11 +413,10 @@
     } catch (err) {
       setStatus('❌ ' + err.message, 'error');
       setConnected(false);
-      document.getElementById('tableBody').innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">💥</div><p>${err.message}</p><p style="margin-top:8px;font-size:11px">Revisa las credenciales en ⚙ Configurar</p></div></td></tr>`;
+      document.getElementById('tableBody').innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">&#128165;</div><p>${err.message}</p><p style="margin-top:8px;font-size:11px">Revisa las credenciales en Configurar</p></div></td></tr>`;
     }
   }
 
-  // ── Stats ──
   function isActivo(val) { return val == 1 || val === 'true' || val === true; }
   function updateStats(rows) {
     const now = new Date(); let activos=0, inactivos=0, warn=0, expired=0;
@@ -466,15 +432,12 @@
     document.getElementById('statInactivos').textContent = inactivos;
   }
 
-  // ── Formatting ──
   function unwrap(val) {
-    if (val && typeof val === 'object' && 'value' in val)
-      return val.type === 'null' ? null : val.value;
+    if (val && typeof val === 'object' && 'value' in val) return val.type === 'null' ? null : val.value;
     return val ?? null;
   }
   function parseDate(val) {
-    val = unwrap(val);
-    if (!val) return null;
+    val = unwrap(val); if (!val) return null;
     if (typeof val === 'number' || /^\d{10,13}$/.test(String(val))) { const ts = parseInt(val); return new Date(ts > 1e12 ? ts : ts * 1000); }
     const d = new Date(val); return isNaN(d) ? null : d;
   }
@@ -496,7 +459,6 @@
     return d.toISOString().slice(0, 10);
   }
 
-  // ── Render table ──
   function makeCopyFn(id, text) {
     copyFns[id] = () => navigator.clipboard.writeText(text).then(() => {
       const btn = document.getElementById(id); if (!btn) return;
@@ -511,7 +473,7 @@
     const body = document.getElementById('tableBody');
     const canWrite = hasWriteToken();
     if (!rows.length) {
-      body.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">🔍</div><p>Sin resultados</p></div></td></tr>';
+      body.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">&#128269;</div><p>Sin resultados</p></div></td></tr>';
       return;
     }
     body.innerHTML = rows.map((row, i) => {
@@ -519,16 +481,13 @@
       const authStr = String(row.auth ?? ''), rkStr = String(row.room_key ?? '');
       const authShort = authStr.length > 14 ? authStr.slice(0,14)+'…' : authStr;
       const rkShort   = rkStr.length   > 14 ? rkStr.slice(0,14)+'…'   : rkStr;
-
-      // ── CAMBIO: se agrega el botón clone ──
       const actions = canWrite
         ? `<div class="edit-actions">
              <button class="edit-btn"  onclick="startEdit(${row.id})">✏ editar</button>
-             <button class="clone-btn" onclick="cloneVip(${row.id})">⧉ clonar</button>
-             <button class="del-btn"   onclick="askDelete(${row.id})">🗑</button>
+             <button class="clone-btn" onclick="cloneVip(${row.id})">&#10697; clonar</button>
+             <button class="del-btn"   onclick="askDelete(${row.id})">&#128465;</button>
            </div>`
         : `<span style="color:var(--muted);font-size:11px">—</span>`;
-
       return `<tr id="row-${row.id}" style="animation-delay:${i*20}ms">
         <td class="id-cell">${row.id ?? '—'}</td>
         <td>${formatActivo(row.activo)}</td>
@@ -548,7 +507,6 @@
     uid += rows.length;
   }
 
-  // ── Inline edit ──
   function startEdit(id) {
     const row = allRows.find(r => r.id == id); if (!row) return;
     editingId = id;
@@ -570,42 +528,35 @@
       </div></td>`;
   }
 
-  function cancelEdit(id) {
-    editingId = null;
-    renderTable(getCurrentFiltered());
-  }
+  function cancelEdit(id) { editingId = null; renderTable(getCurrentFiltered()); }
 
   async function saveEdit(id) {
-    const activo  = document.getElementById('ei-activo').value;
-    const vence   = document.getElementById('ei-vence').value;
-    const auth    = document.getElementById('ei-auth').value.trim();
-    const rk      = document.getElementById('ei-rk').value.trim();
-    const nota    = document.getElementById('ei-nota').value.trim();
+    const activo = document.getElementById('ei-activo').value;
+    const vence  = document.getElementById('ei-vence').value;
+    const auth   = document.getElementById('ei-auth').value.trim();
+    const rk     = document.getElementById('ei-rk').value.trim();
+    const nota   = document.getElementById('ei-nota').value.trim();
     const tr = document.getElementById('row-' + id);
     if (tr) { const sb = tr.querySelector('.save-btn'); if(sb) { sb.textContent='…'; sb.disabled=true; } }
     try {
       await tursoQuery(
         'UPDATE vips SET activo=?, vence_en=?, auth=?, room_key=?, nota=? WHERE id=?',
-        [activo, vence, auth, rk, nota, String(id)],
-        true
+        [activo, vence, auth, rk, nota, String(id)], true
       );
       const idx = allRows.findIndex(r => r.id == id);
       if (idx >= 0) allRows[idx] = { ...allRows[idx], activo, vence_en: vence, auth, room_key: rk, nota };
       setStatus('✓ Registro actualizado.', 'ok'); setTimeout(() => setStatus(''), 2500);
-      updateStats(allRows);
-      editingId = null;
-      renderTable(getCurrentFiltered());
+      updateStats(allRows); editingId = null; renderTable(getCurrentFiltered());
     } catch(err) {
       setStatus('❌ ' + err.message, 'error');
       if (tr) { const sb = tr.querySelector('.save-btn'); if(sb) { sb.textContent='✓ guardar'; sb.disabled=false; } }
     }
   }
 
-  // ── Clone ── (NUEVO)
   function cloneVip(id) {
-    if (!hasWriteToken()) { toggleConfig(true); setConfigHint('⚠ Agrega el token de escritura primero.'); return; }
+    if (!hasWriteToken()) { toggleConfig(true); setConfigHint('Agrega el token de escritura primero.'); return; }
     const row = allRows.find(r => r.id == id); if (!row) return;
-    document.getElementById('modalTitle').textContent = `⧉ Clonar VIP #${id}`;
+    document.getElementById('modalTitle').textContent = `&#10697; Clonar VIP #${id}`;
     document.getElementById('modalSaveBtn').onclick = saveAdd;
     document.getElementById('mAuth').value    = row.auth    ?? '';
     document.getElementById('mRoomKey').value = row.room_key ?? '';
@@ -615,15 +566,12 @@
     document.getElementById('modalOverlay').classList.add('open');
   }
 
-  // ── Add modal ──
   function openAddModal() {
-    if (!hasWriteToken()) { toggleConfig(true); setConfigHint('⚠ Agrega el token de escritura primero.'); return; }
+    if (!hasWriteToken()) { toggleConfig(true); setConfigHint('Agrega el token de escritura primero.'); return; }
     document.getElementById('modalTitle').textContent = 'Nuevo VIP';
     document.getElementById('modalSaveBtn').onclick = saveAdd;
-    document.getElementById('mAuth').value = '';
-    document.getElementById('mRoomKey').value = '';
-    document.getElementById('mActivo').value = '1';
-    document.getElementById('mVenceEn').value = '';
+    document.getElementById('mAuth').value = ''; document.getElementById('mRoomKey').value = '';
+    document.getElementById('mActivo').value = '1'; document.getElementById('mVenceEn').value = '';
     document.getElementById('mNota').value = '';
     document.getElementById('modalOverlay').classList.add('open');
   }
@@ -632,28 +580,24 @@
   function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
 
   async function saveAdd() {
-    const auth  = document.getElementById('mAuth').value.trim();
-    const rk    = document.getElementById('mRoomKey').value.trim();
-    const activo= document.getElementById('mActivo').value;
-    const vence = document.getElementById('mVenceEn').value;
-    const nota  = document.getElementById('mNota').value.trim();
+    const auth   = document.getElementById('mAuth').value.trim();
+    const rk     = document.getElementById('mRoomKey').value.trim();
+    const activo = document.getElementById('mActivo').value;
+    const vence  = document.getElementById('mVenceEn').value;
+    const nota   = document.getElementById('mNota').value.trim();
     if (!auth) { alert('El campo Auth es obligatorio.'); return; }
     const btn = document.getElementById('modalSaveBtn'); btn.textContent = '…'; btn.disabled = true;
     try {
       await tursoQuery(
         'INSERT INTO vips (auth, room_key, activo, vence_en, nota) VALUES (?, ?, ?, ?, ?)',
-        [auth, rk, activo, vence, nota],
-        true
+        [auth, rk, activo, vence, nota], true
       );
-      closeModal();
-      setStatus('✓ VIP agregado.', 'ok'); setTimeout(() => setStatus(''), 2500);
+      closeModal(); setStatus('✓ VIP agregado.', 'ok'); setTimeout(() => setStatus(''), 2500);
       await loadVips();
-    } catch(err) {
-      setStatus('❌ ' + err.message, 'error');
-    } finally { btn.textContent = 'Guardar'; btn.disabled = false; }
+    } catch(err) { setStatus('❌ ' + err.message, 'error'); }
+    finally { btn.textContent = 'Guardar'; btn.disabled = false; }
   }
 
-  // ── Delete ──
   function askDelete(id) {
     const row = allRows.find(r => r.id == id);
     pendingDeleteId = id;
@@ -663,32 +607,40 @@
   function closeConfirm() { document.getElementById('confirmOverlay').classList.remove('open'); pendingDeleteId = null; }
   async function confirmDelete() {
     if (!pendingDeleteId) return;
-    const id = pendingDeleteId;
-    closeConfirm();
+    const id = pendingDeleteId; closeConfirm();
     try {
       await tursoQuery('DELETE FROM vips WHERE id=?', [String(id)], true);
       allRows = allRows.filter(r => r.id != id);
       setStatus('✓ VIP eliminado.', 'ok'); setTimeout(() => setStatus(''), 2500);
-      updateStats(allRows);
-      renderTable(getCurrentFiltered());
+      updateStats(allRows); renderTable(getCurrentFiltered());
     } catch(err) { setStatus('❌ ' + err.message, 'error'); }
   }
 
-  // ── Filter & Sort ──
+  // ── Filter & Sort ── CORREGIDO: row.room_key (con guion bajo)
   function getCurrentFiltered() {
-    const q = document.getElementById('searchBox').value.toLowerCase();
-    return q ? allRows.filter(row => Object.values(row).some(v => String(v??'').toLowerCase().includes(q))) : allRows;
+    const q   = document.getElementById('searchBox').value.toLowerCase();
+    const rk  = document.getElementById('filterRoomKey').value;
+    const act = document.getElementById('filterActivo').value;
+    return allRows.filter(row => {
+      const matchQ   = !q  || Object.values(row).some(v => String(v ?? '').toLowerCase().includes(q));
+      const matchRk  = !rk || String(row.room_key ?? '') === rk;
+      const matchAct = act === '' || (act === '1' ? isActivo(row.activo) : !isActivo(row.activo));
+      return matchQ && matchRk && matchAct;
+    });
   }
+
   function filterTable() { applySortAndRender(getCurrentFiltered()); }
+
   function sortBy(col) {
     sortAsc = sortCol === col ? !sortAsc : true; sortCol = col;
     ['id','activo','vence_en','nota'].forEach(c => {
       const si = document.getElementById('si-'+c), th = document.getElementById('th-'+c);
-      if (si) si.textContent = c===col ? (sortAsc?'↑':'↓') : '';
+      if (si) si.textContent = c===col ? (sortAsc?'\u2191':'\u2193') : '';
       if (th) th.classList.toggle('sorted', c===col);
     });
     applySortAndRender(getCurrentFiltered());
   }
+
   function applySortAndRender(rows) {
     if (!sortCol) { renderTable(rows); return; }
     const sorted = [...rows].sort((a,b) => {
@@ -699,7 +651,6 @@
     renderTable(sorted);
   }
 
-  // Keyboard shortcuts
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeConfirm(); if(editingId) cancelEdit(editingId); } });
 
   loadVips();
